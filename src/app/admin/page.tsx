@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import prisma from '@/lib/prisma'
-import { PrismaClient } from '@prisma/client'
+// import { PrismaClient } from '@prisma/client'
 import { AdminPageClient } from './AdminPageClient'
 import { authOptions } from '@/lib/auth'
 
