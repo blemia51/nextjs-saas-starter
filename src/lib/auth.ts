@@ -1,7 +1,7 @@
 import type { AuthOptions, Session, SessionStrategy } from 'next-auth'
 import type { AdapterUser } from 'next-auth/adapters'
 import GitHubProvider from 'next-auth/providers/github'
-import GoogleProvider from 'next-auth/providers/google'
+// import GoogleProvider from 'next-auth/providers/google'
 import EmailProvider from 'next-auth/providers/email'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from '@/lib/prisma'
