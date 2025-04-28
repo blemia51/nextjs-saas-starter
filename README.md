@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js SaaS Starter
 
-## Getting Started
+![repo stars](https://img.shields.io/github/stars/blemia51/nextjs-saas-starter?style=social)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/git)
+![MIT licence](https://img.shields.io/badge/licence-MIT-blue.svg)
 
-First, run the development server:
+> Un starter **production‑ready** pour lancer un produit SaaS en quelques heures ⏱️ plutôt qu’en plusieurs semaines. 100 % TypeScript, full‑stack Next.js (App Router).
+
+<p align="center">
+  <img src="docs/demo-dashboard.png" alt="Demo screenshot" width="800"/>
+</p>
+
+---
+
+## ✨ Fonctionnalités majeures
+
+- **Auth complète** : GitHub OAuth · Google OAuth · Email Magic Link (SendGrid)
+- **Admin panel** : liste des users, promote / demote rôle **USER ↔ ADMIN**
+- **Dashboard** responsive + Sidebar + Topbar avec logo dark/light
+- **Email HTML** généré via `@react-email` (+ logo Cloudinary)
+- **Stripe ready** : plans mensuels avec webhooks (fichier stub fourni)
+- **Prisma ORM** + PostgreSQL, models User / Account / Subscription
+- **Tailwind CSS** + Dark Mode toggle natif
+- Config tournée vers **Vercel** mais agnostique (Railway, Render…)
+
+---
+
+## 🚀 Installation rapide
 
 ```bash
+# 1 · Clone
+git clone https://github.com/blemia51/nextjs-saas-starter.git
+cd nextjs-saas-starter
+
+# 2 · Dépendances
+npm install
+
+# 3 · Variables d'env
+cp .env.example .env.local
+#  → complète GITHUB_ID, DATABASE_URL, etc.
+
+# 4 · Base de données
+npx prisma migrate dev --name init
+
+# 5 · Lance le mode dev
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Ouvre <http://localhost:3000> ➜ registre‑toi avec GitHub ou reçois un Magic Link 💌
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔧 Configuration (extrait .env)
 
-## Learn More
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | Chaîne PostgreSQL complète |
+| `NEXTAUTH_SECRET` | Secret JWT (openssl rand -base64 32) |
+| `GITHUB_ID / GITHUB_SECRET` | OAuth GitHub |
+| `GOOGLE_CLIENT_ID / SECRET` | OAuth Google |
+| `EMAIL_SERVER` | SMTP SendGrid (ou autre) |
+| `EMAIL_FROM` | **noreply@tondomaine.com** |
+| `STRIPE_SECRET_KEY` | Clé privée Stripe |
+| `STRIPE_WEBHOOK_SECRET` | Secret webhook Stripe |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🗂️ Arborescence
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+ ├ app/                # App Router routes
+ │ ├ dashboard/
+ │ ├ admin/
+ │ └ api/
+ ├ components/         # UI réutilisable
+ ├ emails/             # Templates "react-email"
+ ├ lib/                # Prisma / helpers
+ ├ generated/          # Prisma Client
+ └ prisma/schema.prisma
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ➕ Roadmap courte
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] Intégration Stripe Checkout + Customer Portal
+- [ ] Storybook pour isoler les composants
+- [ ] Tests Playwright + CI GitHub Actions
+- [ ] Exemple déploiement Docker
+
+> Contributions, issues et PR bienvenues 🙏
+
+---
+
+## 🤝 Contribuer
+
+1. **Fork** → `git clone` → crée une branche `feature/xyz`.
+2. `npm run lint && npm run test` avant PR.
+3. Ouvre la Pull Request.
+
+---
+
+## 📜 Licence
+
+MIT © Hervé Bourelle – Have fun & build fast 🚀
+
