@@ -4,17 +4,7 @@ import prisma from '@/lib/prisma'
 // import { PrismaClient } from '@prisma/client'
 import { AdminPageClient } from './AdminPageClient'
 import { authOptions } from '@/lib/auth'
-
-type User = {
-  id: string
-  name: string | null
-  email: string | null
-  emailVerified: Date | null
-  image: string | null
-  role: string
-  createdAt: Date
-  updatedAt: Date
-}
+import type { User } from '@prisma/client'
 
 
 export default async function AdminPage() {

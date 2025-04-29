@@ -2,9 +2,10 @@
 
 import { Sidebar } from "@/components/Sidebar"
 import { Topbar } from "@/components/Topbar"
+import { User } from "@prisma/client"
 import { useState } from "react"
 
-export function AdminPageClient({ users }: { users: any[] }) {
+export function AdminPageClient({ users }: { users: User[] }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
