@@ -3,6 +3,8 @@
 import { useSession, signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { FcGoogle } from 'react-icons/fc'
+
 
 export default function LoginClient() {
   const searchParams = useSearchParams()
@@ -58,6 +60,14 @@ export default function LoginClient() {
             Send magic link
           </button>
         </form>
+          {/* Google */}
+        <button
+          onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+          className="w-full flex items-center justify-center gap-2 px-6 py-2 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+        >
+          <FcGoogle size={18} />
+          Sign in with Google
+        </button>
 
         {msg && <p className="text-sm text-center mt-2">{msg}</p>}
       </div>

@@ -1,7 +1,7 @@
 import type { AuthOptions, Session, SessionStrategy } from 'next-auth'
 import type { AdapterUser } from 'next-auth/adapters'
 import GitHubProvider from 'next-auth/providers/github'
-// import GoogleProvider from 'next-auth/providers/google'
+import GoogleProvider from 'next-auth/providers/google'
 import EmailProvider from 'next-auth/providers/email'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from '@/lib/prisma'
@@ -22,11 +22,7 @@ export const authOptions: AuthOptions = {
       async sendVerificationRequest({ identifier, url, provider }) {
         const nodemailer = await import('nodemailer')
         const { host } = new URL(url)
-
         const transport = nodemailer.createTransport(provider.server)
-        
-        
-
         const result = await transport.sendMail({
           to: identifier,
           from: provider.from,
@@ -41,6 +37,11 @@ export const authOptions: AuthOptions = {
         }
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+
   ],
   session: {
     strategy: 'database' satisfies SessionStrategy,
