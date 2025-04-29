@@ -4,6 +4,8 @@ import { useSession, signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
+import { SiDiscord } from 'react-icons/si'
+
 
 
 export default function LoginClient() {
@@ -32,11 +34,30 @@ export default function LoginClient() {
       <div className="space-y-4 w-full max-w-sm">
         <button
           onClick={() => signIn('github', { callbackUrl: '/dashboard' })}
-          className="w-full px-6 py-2 bg-black text-white rounded hover:bg-gray-800 transition"
+          className="w-full px-6 py-2 bg-black text-white rounded hover:bg-gray-800 transition cursor-pointer"
         >
           Sign in with GitHub
         </button>
 
+         {/* Discord */}
+        <button
+          onClick={() => signIn('discord', { callbackUrl: '/dashboard' })}
+          className="w-full flex items-center justify-center gap-2 px-6 py-2 bg-[#5865F2] text-white rounded hover:bg-[#4752c4] transition cursor-pointer"
+        >
+          <SiDiscord size={18} />
+          Sign in with Discord
+        </button>
+
+          {/* Google */}
+        <button
+          onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+          className="w-full flex items-center justify-center gap-2 px-6 py-2 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer"
+        >
+          <FcGoogle size={18} />
+          Sign in with Google
+        </button>
+
+        <p className='text-center'>Or</p>
         <form
           onSubmit={async (e) => {
             e.preventDefault()
@@ -55,19 +76,12 @@ export default function LoginClient() {
           />
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded cursor-pointer"
           >
             Send magic link
           </button>
         </form>
-          {/* Google */}
-        <button
-          onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
-          className="w-full flex items-center justify-center gap-2 px-6 py-2 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-800 transition"
-        >
-          <FcGoogle size={18} />
-          Sign in with Google
-        </button>
+
 
         {msg && <p className="text-sm text-center mt-2">{msg}</p>}
       </div>
