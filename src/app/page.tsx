@@ -12,7 +12,6 @@ export default function HomePage() {
         <p className="text-lg text-gray-600 dark:text-gray-400">
           A clean and scalable Next.js 14 starter with Auth, Stripe, and modern UI — launch faster.
         </p>
-
         <div className="flex justify-center gap-4 flex-wrap">
           <a href="/dashboard" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-medium">
             Live Demo
@@ -20,9 +19,6 @@ export default function HomePage() {
           <a href="#" className="border border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 px-6 py-2 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-800">
             Buy Template
           </a>
-        </div>
-
-        <div className="pt-4">
           <ThemeToggle />
         </div>
         <section className="mt-20 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
