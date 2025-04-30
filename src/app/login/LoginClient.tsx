@@ -99,7 +99,7 @@ export default function LoginClient() {
           <form
             onSubmit={async (e) => {
               e.preventDefault()
-              const res = await signIn('credentials', {
+              await signIn('credentials', {
                 email: credEmail,
                 password: credPass,
                 callbackUrl: '/dashboard',    
