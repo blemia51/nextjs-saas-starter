@@ -7,24 +7,31 @@ export default function HomePage() {
     <main className="min-h-screen px-6 py-20 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors">
       <div className="max-w-4xl mx-auto text-center space-y-6">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-          Build your SaaS in hours, not weeks
+          Launch your SaaS in hours, not weeks
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400">
-          A clean and scalable Next.js 14 starter with Auth, Stripe, and modern UI — launch faster.
+          A clean, scalable Next.js 14 starter with Auth, Stripe, and modern UI—release faster.
         </p>
         <div className="flex justify-center gap-4 flex-wrap">
-          <a href="/dashboard" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-medium">
+          <a
+            href="/dashboard"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-medium"
+          >
             Live Demo
           </a>
-          <a href="#" className="border border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 px-6 py-2 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-800">
+          <a
+            href="#"
+            className="border border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 px-6 py-2 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-800"
+          >
             Buy Template
           </a>
           <ThemeToggle />
         </div>
+
         <section className="mt-20 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
           <Feature
             title="Next.js 14"
-            desc="Built with App Router and modern best practices."
+            desc="Built with the App Router and modern best practices."
           />
           <Feature
             title="Tailwind CSS v4"
@@ -36,15 +43,15 @@ export default function HomePage() {
           />
           <Feature
             title="Dark Mode"
-            desc="Built-in light/dark theme with persistence."
+            desc="Native light/dark theme with persistence."
           />
           <Feature
             title="Clean UI"
             desc="Minimalist dashboard with reusable components."
           />
           <Feature
-            title="Deploy in 1 click"
-            desc="Optimized for Vercel, Netlify and beyond."
+            title="One-Click Deploy"
+            desc="Optimized for Vercel, Netlify, and beyond."
           />
         </section>
       </div>
@@ -60,4 +67,3 @@ function Feature({ title, desc }: { title: string; desc: string }) {
     </div>
   )
 }
-
