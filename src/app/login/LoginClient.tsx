@@ -5,13 +5,10 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { SiDiscord } from 'react-icons/si'
-import { useRouter } from 'next/navigation'
-
-
 
 export default function LoginClient() {
   const { data: session } = useSession()
-  const error             = useSearchParams().get('error')
+  const error = useSearchParams().get('error')
 
   /* state magic-link */
   const [mlEmail, setMlEmail] = useState('')
@@ -20,9 +17,8 @@ export default function LoginClient() {
   /* state credentials */
   const [credEmail, setCredEmail]     = useState('')
   const [credPass,  setCredPass]      = useState('')
-  const [credMsg,   setCredMsg]       = useState('')
+  // const [credMsg,   setCredMsg]       = useState('')
 
-  const router = useRouter()
 
   useEffect(() => {
     if (session) window.location.href = '/dashboard'
@@ -139,7 +135,7 @@ export default function LoginClient() {
             <a href="/signup" className="underline text-blue-600">Create one</a>
           </p>
 
-          {credMsg && <p className="text-sm text-center">{credMsg}</p>}
+          {/* {credMsg && <p className="text-sm text-center">{credMsg}</p>} */}
         </div>
       </div>
     </main>
