@@ -1,107 +1,133 @@
-# Next.js SaaS Starter
+# Next.js SaaS Starter
 
-![repo stars](https://img.shields.io/github/stars/blemia51/nextjs-saas-starter?style=social)
+![GitHub stars](https://img.shields.io/github/stars/blemia51/nextjs-saas-starter?style=social)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/git)
-![MIT licence](https://img.shields.io/badge/licence-MIT-blue.svg)
+![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-> Un starter **production‑ready** pour lancer un produit SaaS en quelques heures ⏱️ plutôt qu’en plusieurs semaines. 100 % TypeScript, full‑stack Next.js (App Router).
+> A **production‑ready** starter to launch a SaaS product in hours ⏱️ instead of weeks. 100% TypeScript, full‑stack Next.js (App Router).
 
 <p align="center">
-  <img src="docs/demo-dashboard.png" alt="Demo screenshot" width="800"/>
+  <img src="docs/demo-dashboard.png" alt="Dashboard demo screenshot" width="800"/>
 </p>
 
 ---
 
-## ✨ Fonctionnalités majeures
+## ✨ Key Features
 
-- **Auth complète** : GitHub OAuth · Google OAuth · Email Magic Link (SendGrid)
-- **Admin panel** : liste des users, promote / demote rôle **USER ↔ ADMIN**
-- **Dashboard** responsive + Sidebar + Topbar avec logo dark/light
-- **Email HTML** généré via `@react-email` (+ logo Cloudinary)
-- **Stripe ready** : plans mensuels avec webhooks (fichier stub fourni)
-- **Prisma ORM** + PostgreSQL, models User / Account / Subscription
-- **Tailwind CSS** + Dark Mode toggle natif
-- Config tournée vers **Vercel** mais agnostique (Railway, Render…)
+- **Comprehensive Auth**: GitHub OAuth · Google OAuth · Email Magic Link (SendGrid)
+- **Admin Panel**: List users, promote/demote roles **USER ↔ ADMIN**
+- **Responsive Dashboard**: Sidebar + Topbar with light/dark logos
+- **Email Templates**: HTML emails built with `@react-email` (+ Cloudinary-hosted logos)
+- **Stripe Ready**: Monthly plans + webhooks (stub provided)
+- **Prisma ORM** + PostgreSQL (User, Account, Session models)
+- **Tailwind CSS** + Built‑in Dark Mode toggle
+- **Observability**: Plausible Analytics, Sentry error monitoring
+- **Vercel‑Optimized**: Deploy on Vercel (also works on Railway, Render…)
 
 ---
 
-## 🚀 Installation rapide
+## 🚀 Quick Start
 
 ```bash
-# 1 · Clone
+# 1 · Clone
 git clone https://github.com/blemia51/nextjs-saas-starter.git
 cd nextjs-saas-starter
 
-# 2 · Dépendances
+# 2 · Install dependencies
 npm install
 
-# 3 · Variables d'env
+# 3 · Configure environment variables
 cp .env.example .env.local
-#  → complète GITHUB_ID, DATABASE_URL, etc.
+# → fill in GITHUB_ID, DATABASE_URL, SENDGRID_API_KEY, etc.
 
-# 4 · Base de données
+# 4 · Initialize database
 npx prisma migrate dev --name init
 
-# 5 · Lance le mode dev
+# 5 · Start development server
 npm run dev
 ```
 
-> Ouvre <http://localhost:3000> ➜ registre‑toi avec GitHub ou reçois un Magic Link 💌
+> Visit <http://localhost:3000> → sign in with GitHub, Google, Magic Link, or Credentials.
 
 ---
 
-## 🔧 Configuration (extrait .env)
+## 🔧 Configuration (`.env.example`)
 
-| Variable | Description |
-|----------|-------------|
-| `DATABASE_URL` | Chaîne PostgreSQL complète |
-| `NEXTAUTH_SECRET` | Secret JWT (openssl rand -base64 32) |
-| `GITHUB_ID / GITHUB_SECRET` | OAuth GitHub |
-| `GOOGLE_CLIENT_ID / SECRET` | OAuth Google |
-| `EMAIL_SERVER` | SMTP SendGrid (ou autre) |
-| `EMAIL_FROM` | **noreply@tondomaine.com** |
-| `STRIPE_SECRET_KEY` | Clé privée Stripe |
-| `STRIPE_WEBHOOK_SECRET` | Secret webhook Stripe |
+```dotenv
+# Database
+DATABASE_URL="postgresql://user:pass@localhost:5432/saas_starterdb?schema=public"
 
----
+# NextAuth & OAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=$(openssl rand -base64 32)
+GITHUB_ID=...
+GITHUB_SECRET=...
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+DISCORD_CLIENT_ID=...
+DISCORD_CLIENT_SECRET=...
 
-## 🗂️ Arborescence
+# Email / SendGrid
+SENDGRID_API_KEY=SG.xxxxxxxxxxxxxxxxxxxxxxxxx
+EMAIL_FROM="SaaS Starter <noreply@yourdomain.com>"
+EMAIL_SERVER=smtp://apikey:${SENDGRID_API_KEY}@smtp.sendgrid.net:587
 
+# Stripe (optional)
+STRIPE_SECRET_KEY=sk_live_...
+STRIPE_WEBHOOK_SECRET=whsec_...
 ```
+
+| Environment Variable    | Description                                   |
+|-------------------------|-----------------------------------------------|
+| `DATABASE_URL`          | PostgreSQL connection string                  |
+| `NEXTAUTH_URL`          | Base URL (e.g. http://localhost:3000)         |
+| `NEXTAUTH_SECRET`       | JWT secret (use `openssl rand -base64 32`)    |
+| `GITHUB_ID/SECRET`      | GitHub OAuth credentials                      |
+| `GOOGLE_CLIENT_ID/SEC`  | Google OAuth credentials                      |
+| `DISCORD_CLIENT_ID/...` | Discord OAuth credentials                     |
+| `SENDGRID_API_KEY`      | SendGrid API key                              |
+| `EMAIL_FROM`            | Verified sender email                         |
+| `EMAIL_SERVER`          | SMTP URL for SendGrid                         |
+| `STRIPE_SECRET_KEY`     | Stripe secret key (optional)                  |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook secret (optional)              |
+
+---
+
+## 🗂️ Project Structure
+
+```plaintext
 src/
- ├ app/                # App Router routes
- │ ├ dashboard/
- │ ├ admin/
- │ └ api/
- ├ components/         # UI réutilisable
- ├ emails/             # Templates "react-email"
- ├ lib/                # Prisma / helpers
- ├ generated/          # Prisma Client
- └ prisma/schema.prisma
+ ├ app/                # App Router: pages & API routes
+ │ ├ dashboard/        # User dashboard
+ │ ├ admin/            # Admin panel (role management)
+ │ └ api/              # Next.js API routes (auth, signup, webhooks)
+ ├ components/         # Reusable UI components
+ ├ emails/             # `@react-email` templates
+ ├ lib/                # Helpers (Prisma client, password utils, notifications)
+ ├ generated/          # Prisma Client (if configured)
+ └ prisma/             # Prisma schema & migrations
 ```
 
 ---
 
-## ➕ Roadmap courte
+## ➕ Roadmap
 
-- [ ] Intégration Stripe Checkout + Customer Portal
-- [ ] Storybook pour isoler les composants
-- [ ] Tests Playwright + CI GitHub Actions
-- [ ] Exemple déploiement Docker
-
-> Contributions, issues et PR bienvenues 🙏
+- [ ] Integrate **Stripe Checkout & Customer Portal**
+- [ ] Add **Storybook** for component development
+- [ ] Implement **End‑to‑End tests** (Playwright) + **CI via GitHub Actions**
+- [ ] Provide **Docker** setup & deployment guide
 
 ---
 
-## 🤝 Contribuer
+## 🤝 Contributing
 
-1. **Fork** → `git clone` → crée une branche `feature/xyz`.
-2. `npm run lint && npm run test` avant PR.
-3. Ouvre la Pull Request.
+1. **Fork** the repo → create branch `feature/xyz`
+2. Run `npm run lint && npm run test`
+3. Open a Pull Request for review
 
 ---
 
-## 📜 Licence
+## 📜 License
 
-MIT © Hervé Bourelle – Have fun & build fast 🚀
+MIT © Hervé Bourelle – Have fun and build fast 🚀
 

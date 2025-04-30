@@ -1,13 +1,18 @@
-import type { AuthOptions, Session, SessionStrategy } from 'next-auth'
+import type { AuthOptions } from 'next-auth'
 import type { AdapterUser } from 'next-auth/adapters'
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import DiscordProvider  from 'next-auth/providers/discord'
 import EmailProvider from 'next-auth/providers/email'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from '@/lib/prisma'
 import { render } from '@react-email/render'
 import MagicLinkEmail from '@/emails/Email'
+import { verifyPassword }  from '@/lib/password'
+import sgMail from '@sendgrid/mail'
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
 
 export const authOptions: AuthOptions = {
   debug: true,
@@ -21,21 +26,15 @@ export const authOptions: AuthOptions = {
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
       async sendVerificationRequest({ identifier, url, provider }) {
-        const nodemailer = await import('nodemailer')
         const { host } = new URL(url)
-        const transport = nodemailer.createTransport(provider.server)
-        const result = await transport.sendMail({
+        const msg = {
           to: identifier,
           from: provider.from,
           subject: `Sign in to ${host}`,
           html: await render(MagicLinkEmail({url})),
           text: `Sign in to ${host}\n${url}\n\n`,
-        })
-
-        const failed = result.rejected.concat(result.pending).filter(Boolean)
-        if (failed.length) {
-          throw new Error(`Email(s) (${failed.join(', ')}) could not be sent`)
         }
+        await sgMail.send(msg)
       },
     }),
 
@@ -49,19 +48,45 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
 
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        email:    { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
+      },
+      async authorize(creds) {
+        if (!creds?.email || !creds.password) return null
+       // ① Récupère l'utilisateur dans la DB
+    const user = await prisma.user.findUnique({ 
+      where: { email: creds.email },
+      select: { id: true, name: true, email: true, role: true, passwordHash: true },
+    })
+    console.log('user', user)
+    if (!user || !user.passwordHash) return null
+
+    // ② Vérifie le mot de passe
+    const isValid = await verifyPassword(creds.password, user.passwordHash)
+    return isValid ? user : null     // → “Invalid credentials”
+      },
+    }),
+
   ],
   session: {
-    strategy: 'database' satisfies SessionStrategy,
+    // strategy: 'database' satisfies SessionStrategy,
+    strategy: 'jwt'
   },
   callbacks: {
-    async session({ session, user }: { session: Session; user: AdapterUser }) {
-      session.user.id = user.id
-      session.user.role = user.role
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+        token.role = (user as AdapterUser).role
+      }
+      return token
+    },
+    async session({ session, token }) {
+      session.user.id   = token.id!
+      session.user.role = token.role!
       return session
     },
   },
-  pages: {
-    signIn: '/login',
-  },
-  secret: process.env.NEXTAUTH_SECRET,
 }
