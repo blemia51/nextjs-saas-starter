@@ -10,10 +10,10 @@ export function AdminPageClient({ users }: { users: User[] }) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
-      <Topbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+      {/* <Topbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} /> */}
       <div className="flex flex-1">
-        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main className="p-6 flex-1 overflow-auto max-w-4xl mx-auto">
+        {/* <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} /> */}
+        <main className="p-6 flex-1 overflow-auto max-w-4xl">
           <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
           <table className="w-full border border-gray-300 dark:border-gray-700 text-sm">
             <thead>

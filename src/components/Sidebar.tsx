@@ -45,7 +45,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           <Link href="/dashboard" className="block hover:text-blue-600">Dashboard</Link>
           <Link href="/admin" className="block hover:text-blue-600">Users</Link>
           <a href="#" className="block hover:text-blue-600">Billing</a>
-          <a href="#" className="block hover:text-blue-600">Settings</a>
+          <Link href="/admin/settings" className="block hover:text-blue-600">Settings</Link>
 
           <button
             onClick={() => signOut()}
