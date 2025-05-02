@@ -1,10 +1,9 @@
 'use client'
 
 import { User } from "@prisma/client"
-import { useState } from "react"
+// import { useState } from "react"
 
 export function AdminPageClient({ users }: { users: User[] }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
