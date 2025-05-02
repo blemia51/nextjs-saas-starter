@@ -21,9 +21,13 @@ export async function GET() {
     }))
 
     return NextResponse.json(data)
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('GET /api/admin/config error:', err)
-    return NextResponse.json({ error: err.message }, { status: 500 })
+    const message =
+      err instanceof Error
+        ? err.message
+        : String(err)  // fallback for non-Error throwables
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }
 

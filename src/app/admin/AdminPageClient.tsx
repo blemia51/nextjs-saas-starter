@@ -1,7 +1,5 @@
 'use client'
 
-import { Sidebar } from "@/components/Sidebar"
-import { Topbar } from "@/components/Topbar"
 import { User } from "@prisma/client"
 import { useState } from "react"
 
