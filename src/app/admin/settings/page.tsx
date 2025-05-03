@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { CONFIG_KEYS }      from '@/lib/config-keys'
 import { nanoid }           from 'nanoid'
+import { MoreVertical } from 'lucide-react'
 
 type Entry = {
   id:     string
@@ -18,9 +19,14 @@ export default function SettingsPage() {
   const [editKey, setEditKey]       = useState('')
   const [editValue, setEditValue]   = useState('')
 
+  // Dropdown menu state
+  const [openMenuId,  setOpenMenuId]  = useState<string | null>(null) 
+
   // Local state for new custom key
   const [newKey, setNewKey]         = useState('')
   const [newValue, setNewValue]     = useState('')
+
+  const menuRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
   // Load existing config
   useEffect(() => {
@@ -55,6 +61,20 @@ export default function SettingsPage() {
       })
   }, [])
 
+  // Close menu on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      const refs = menuRefs.current
+      if (openMenuId && refs[openMenuId] && !refs[openMenuId]!.contains(e.target as Node)) {
+        setOpenMenuId(null)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [openMenuId])
+
+  
+
   // Begin edit mode for one entry
   function startEdit(id: string) {
     const e = entries.find(e => e.id === id)
@@ -62,11 +82,18 @@ export default function SettingsPage() {
     setEditingId(id)
     setEditKey(e.key)
     setEditValue(e.value)
+    setOpenMenuId(null)
   }
 
   // Cancel editing
   function cancelEdit() {
     setEditingId(null)
+  }
+
+  function removeEntry(id: string) {
+    setEntries(prev => prev.filter(e => e.id !== id))
+    setDirty(true)
+    setOpenMenuId(null)
   }
 
   // Save single edit locally
@@ -147,7 +174,28 @@ export default function SettingsPage() {
                   disabled
                   className="w-2/3 truncate border p-2 rounded text-gray-500"
                 />
-                <button type="button" onClick={() => startEdit(entry.id)} className="text-blue-600 cursor-pointer">Edit</button>
+                <div
+                  ref={(el) => { menuRefs.current[entry.id] = el}}
+                  className="relative" 
+                  onClick={e => e.stopPropagation()}
+                >
+                  <button 
+                    type="button" 
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setOpenMenuId(openMenuId === entry.id ? null : entry.id)}
+                    }
+                    className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer"
+                  >
+                    <MoreVertical size={20} />
+                  </button>
+                  {openMenuId === entry.id && (
+                    <div className="absolute top-1/2 left-full ml-6 transform -translate-y-1/2 w-32 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
+                      <button onClick={() => startEdit(entry.id)} className="block w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Edit</button>
+                      <button onClick={() => removeEntry(entry.id)} className="block w-full text-left px-3 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">Remove</button>
+                    </div>
+                  )}
+                </div>
               </>
             )}
           </div>
