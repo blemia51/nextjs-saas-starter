@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { CONFIG_KEYS }      from '@/lib/config-keys'
 import { nanoid }           from 'nanoid'
 import { MoreVertical } from 'lucide-react'
+import SettingsSkeleton from '@/components/SettingsSkeleton'
 
 type Entry = {
   id:     string
@@ -25,6 +26,7 @@ export default function SettingsPage() {
   // Local state for new custom key
   const [newKey, setNewKey]         = useState('')
   const [newValue, setNewValue]     = useState('')
+  const [isloading, setIsloading] = useState(true)
 
   const menuRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
@@ -59,6 +61,8 @@ export default function SettingsPage() {
 
         setEntries(loaded)
       })
+      .catch(() => {})
+      .finally(() => setIsloading(false))
   }, [])
 
   // Close menu on outside click
@@ -138,6 +142,10 @@ export default function SettingsPage() {
     setDirty(false)
     alert('Saved!')
   }
+  if (isloading) {
+    return (
+      <SettingsSkeleton/>
+  )}
 
   return (
     <div className="p-5 max-w-5xl space-y-6">
