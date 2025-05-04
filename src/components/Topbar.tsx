@@ -45,7 +45,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
           <Menu size={24} />
         </button>
         <Image
-          src={logo} // place ton fichier dans /public/logo.png
+          src={logo}
           alt="SaaS Starter Logo"
           width={180}
           height={180}

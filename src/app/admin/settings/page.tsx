@@ -144,7 +144,7 @@ export default function SettingsPage() {
   }
   if (isloading) {
     return (
-      <div className="p-5 max-w-5xl space-y-6">
+      <div className="p-5 max-w-5xl mt-4 space-y-6">
         <SettingsSkeleton/>
       </div>
   )}
