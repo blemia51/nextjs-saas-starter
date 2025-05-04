@@ -167,7 +167,7 @@ export default function SettingsPage() {
                   // type={entry.secret ? 'password' : 'text'}
                   value={editValue}
                   onChange={e => setEditValue(e.target.value)}
-                />  
+                />
                 <button type="button" onClick={() => saveEdit(entry.id)} className="text-green-600 cursor-pointer ">Save</button>
                 <button type="button" onClick={cancelEdit} className="text-gray-600 cursor-pointer">Cancel</button>
               </>

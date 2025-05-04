@@ -34,7 +34,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
 
 
   return (
-    <header className="w-full h-16 px-6 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+    <header className="w-full h-24 px-6 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
       <div className="flex items-center gap-4">
         {/* 🍔 Mobile Menu Button */}
         <button
@@ -47,8 +47,8 @@ export function Topbar({ onMenuClick }: TopbarProps) {
         <Image
           src={logo} // place ton fichier dans /public/logo.png
           alt="SaaS Starter Logo"
-          width={120}
-          height={120}
+          width={180}
+          height={180}
           className="mr-2"
         />
         {/* Page Title */}
