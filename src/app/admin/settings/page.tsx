@@ -155,6 +155,7 @@ export default function SettingsPage() {
       <form onSubmit={saveAll} className="space-y-4">
         {entries.map(entry => (
           <div key={entry.id} className="flex flex-row gap-4">
+            
             {editingId === entry.id ? (
               <>       
                 <input
