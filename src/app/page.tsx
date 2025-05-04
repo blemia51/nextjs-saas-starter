@@ -4,7 +4,7 @@ import { ThemeToggle } from '@/components/ThemeToogle'
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen px-6 py-20 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors">
+    <main className="min-h-screen px-6 py-20 bg-white dark:bg-[#212121] text-gray-800 dark:text-gray-100 transition-colors">
       <div className="max-w-4xl mx-auto text-center space-y-6">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
           Launch your SaaS in hours, not weeks
@@ -61,7 +61,7 @@ export default function HomePage() {
 
 function Feature({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white dark:bg-gray-800">
+    <div className="rounded-xl border border-gray-200 dark:border-[#303030] p-6 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white dark:bg-[#303030]">
       <h3 className="text-lg font-semibold mb-1">{title}</h3>
       <p className="text-sm text-gray-600 dark:text-gray-400">{desc}</p>
     </div>

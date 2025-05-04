@@ -24,7 +24,7 @@ export default async function AdminLayout({
 
   // 2️⃣ Shell with Sidebar & Topbar
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#212121] text-gray-900 dark:text-gray-100 flex flex-col">
       <Topbar />
 
       <div className="relative flex flex-col md:flex-row flex-1">

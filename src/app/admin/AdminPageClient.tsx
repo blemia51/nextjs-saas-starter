@@ -6,7 +6,7 @@ import { User } from "@prisma/client"
 export function AdminPageClient({ users }: { users: User[] }) {
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#212121] text-gray-900 dark:text-gray-100 flex flex-col">
       {/* <Topbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} /> */}
       <div className="flex flex-1">
         {/* <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} /> */}

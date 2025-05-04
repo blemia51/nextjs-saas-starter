@@ -10,7 +10,7 @@ export default function DashboardShell() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#212121] text-gray-900 dark:text-gray-100 flex flex-col">
       <Topbar onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
       <div className="relative flex flex-col md:flex-row flex-1">
         <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)}  />

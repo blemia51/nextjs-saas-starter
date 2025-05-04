@@ -34,7 +34,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
 
 
   return (
-    <header className="w-full h-24 px-6 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+    <header className="w-full h-24 px-6 bg-white dark:bg-[#171717] border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
       <div className="flex items-center gap-4">
         {/* 🍔 Mobile Menu Button */}
         <button

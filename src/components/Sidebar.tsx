@@ -26,7 +26,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={clsx(
-          'fixed z-50 md:static top-0 left-0 h-screen md:h-auto w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 p-6 transition-transform',
+          'fixed z-50 md:static top-0 left-0 h-screen md:h-auto w-64 bg-white dark:bg-[#171717] border-r border-gray-200 dark:border-gray-800 p-6 transition-transform',
           isOpen ? 'translate-x-0' : '-translate-x-full',
           'md:translate-x-0'
         )}

@@ -25,8 +25,8 @@ export default function LoginClient() {
   }, [session])
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-4">
-      <div className="w-full max-w-sm bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow space-y-6">
+    <main className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-[#212121] text-gray-900 dark:text-gray-100 p-4">
+      <div className="w-full max-w-sm bg-gray-50 dark:bg-[#303030] p-6 rounded-xl shadow space-y-6">
         <h1 className="text-2xl font-bold text-center">Login</h1>
 
         {/* ------ OAUTH BUTTONS ------ */}
@@ -81,7 +81,7 @@ export default function LoginClient() {
               placeholder="you@example.com"
               value={mlEmail}
               onChange={(e) => setMlEmail(e.target.value)}
-              className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
+              className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-[#212121]"
             />
             <button
               type="submit"
@@ -113,7 +113,7 @@ export default function LoginClient() {
               placeholder="you@example.com"
               value={credEmail}
               onChange={(e) => setCredEmail(e.target.value)}
-              className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
+              className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-[#212121]"
             />
             <input
               type="password"
@@ -121,7 +121,7 @@ export default function LoginClient() {
               placeholder="••••••••"
               value={credPass}
               onChange={(e) => setCredPass(e.target.value)}
-              className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
+              className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-[#212121]"
             />
             <button
               type="submit"

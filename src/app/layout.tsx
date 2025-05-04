@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-white text-black dark:bg-gray-900 dark:text-white transition-colors">
+      <body className="bg-white text-black dark:bg-[#212121] dark:text-white transition-colors">
         {/* Providers is client-only, but layout stays server-only */}
         <Providers>
           {children}
