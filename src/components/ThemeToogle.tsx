@@ -23,7 +23,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+      className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 dark:bg-[#303030]/50 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors cursor-pointer"
     >
       <span
         className="text-xl transition-transform duration-500"

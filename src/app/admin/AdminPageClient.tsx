@@ -14,7 +14,7 @@ export function AdminPageClient({ users }: { users: User[] }) {
           <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
           <table className="w-full border border-gray-300 dark:border-gray-700 text-sm">
             <thead>
-              <tr className="bg-gray-100 dark:bg-gray-800">
+              <tr className="bg-gray-100 dark:bg-[#303030]">
                 <th className="text-left p-2">Name</th>
                 <th className="text-left p-2">Email</th>
                 <th className="text-left p-2">Role</th>

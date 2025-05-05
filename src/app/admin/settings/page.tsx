@@ -155,7 +155,6 @@ export default function SettingsPage() {
       <form onSubmit={saveAll} className="space-y-4">
         {entries.map(entry => (
           <div key={entry.id} className="flex flex-row gap-4">
-            
             {editingId === entry.id ? (
               <>       
                 <input
@@ -241,7 +240,7 @@ export default function SettingsPage() {
         <button
           type="submit"
           disabled={!dirty}
-          className="w-full bg-blue-600 text-white py-2 rounded disabled:opacity-50 cursor-pointer"
+          className="w-full bg-blue-600 text-white py-2 rounded disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
         >
           Save Changes
         </button>
