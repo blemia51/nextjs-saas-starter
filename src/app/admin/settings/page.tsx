@@ -1,31 +1,31 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { CONFIG_KEYS }      from '@/lib/config-keys'
-import { nanoid }           from 'nanoid'
+import { CONFIG_KEYS } from '@/lib/config-keys'
+import { nanoid } from 'nanoid'
 import { MoreVertical } from 'lucide-react'
 import SettingsSkeleton from '@/components/SettingsSkeleton'
 
 type Entry = {
-  id:     string
-  key:    string
-  value:  string
+  id: string
+  key: string
+  value: string
   secret: boolean
 }
 
 export default function SettingsPage() {
-  const [entries, setEntries]       = useState<Entry[]>([])
-  const [dirty, setDirty]           = useState(false)
-  const [editingId, setEditingId]   = useState<string | null>(null)
-  const [editKey, setEditKey]       = useState('')
-  const [editValue, setEditValue]   = useState('')
+  const [entries, setEntries] = useState<Entry[]>([])
+  const [dirty, setDirty] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editKey, setEditKey] = useState('')
+  const [editValue, setEditValue] = useState('')
 
   // Dropdown menu state
-  const [openMenuId,  setOpenMenuId]  = useState<string | null>(null) 
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null)
 
   // Local state for new custom key
-  const [newKey, setNewKey]         = useState('')
-  const [newValue, setNewValue]     = useState('')
+  const [newKey, setNewKey] = useState('')
+  const [newValue, setNewValue] = useState('')
   const [isloading, setIsloading] = useState(true)
 
   const menuRefs = useRef<Record<string, HTMLDivElement | null>>({})
@@ -41,9 +41,9 @@ export default function SettingsPage() {
         for (const c of CONFIG_KEYS) {
           const found = data.find(d => d.key === c.key)
           loaded.push({
-            id:     c.key,
-            key:    c.key,
-            value:  found?.value ?? '',
+            id: c.key,
+            key: c.key,
+            value: found?.value ?? '',
             secret: c.secret,
           })
         }
@@ -52,16 +52,16 @@ export default function SettingsPage() {
         for (const d of data) {
           if (CONFIG_KEYS.some(c => c.key === d.key)) continue
           loaded.push({
-            id:     d.key,
-            key:    d.key,
-            value:  d.value,
+            id: d.key,
+            key: d.key,
+            value: d.value,
             secret: false,
           })
         }
 
         setEntries(loaded)
       })
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setIsloading(false))
   }, [])
 
@@ -77,7 +77,7 @@ export default function SettingsPage() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [openMenuId])
 
-  
+
 
   // Begin edit mode for one entry
   function startEdit(id: string) {
@@ -142,12 +142,14 @@ export default function SettingsPage() {
     setDirty(false)
     alert('Saved!')
   }
+
   if (isloading) {
     return (
       <div className="p-5 max-w-5xl mt-4 space-y-6">
-        <SettingsSkeleton/>
+        <SettingsSkeleton />
       </div>
-  )}
+    )
+  }
 
   return (
     <div className="p-5 max-w-5xl space-y-6">
@@ -156,7 +158,7 @@ export default function SettingsPage() {
         {entries.map(entry => (
           <div key={entry.id} className="flex flex-row gap-4">
             {editingId === entry.id ? (
-              <>       
+              <>
                 <input
                   className="w-1/3 border p-2 rounded"
                   value={editKey}
@@ -176,33 +178,34 @@ export default function SettingsPage() {
                 <input
                   value={entry.key}
                   disabled
-                  className="w-1/3 truncate font-medium text-gray-500 border p-2 rounded" 
-                  />
-                <input 
+                  className="w-1/3 truncate font-medium text-gray-500 border p-2 rounded"
+                />
+                <input
                   type={entry.secret ? 'password' : 'text'}
-                  value={entry.value} 
+                  value={entry.value}
                   disabled
                   className="w-2/3 truncate border p-2 rounded text-gray-500"
                 />
                 <div
-                  ref={(el) => { menuRefs.current[entry.id] = el}}
-                  className="relative" 
+                  ref={(el) => { menuRefs.current[entry.id] = el }}
+                  className="relative"
                   onClick={e => e.stopPropagation()}
                 >
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation()
-                      setOpenMenuId(openMenuId === entry.id ? null : entry.id)}
+                      setOpenMenuId(openMenuId === entry.id ? null : entry.id)
+                    }
                     }
                     className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer"
                   >
                     <MoreVertical size={20} />
                   </button>
                   {openMenuId === entry.id && (
-                    <div className="absolute top-1/2 left-full ml-6 transform -translate-y-1/2 w-32 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
-                      <button onClick={() => startEdit(entry.id)} className="block w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Edit</button>
-                      <button onClick={() => removeEntry(entry.id)} className="block w-full text-left px-3 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">Remove</button>
+                    <div className="absolute top-1/2 left-full ml-6 transform -translate-y-1/2 w-32 bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
+                      <button onClick={() => startEdit(entry.id)} className="block w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Edit</button>
+                      <button onClick={() => removeEntry(entry.id)} className="block w-full text-left px-3 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Remove</button>
                     </div>
                   )}
                 </div>

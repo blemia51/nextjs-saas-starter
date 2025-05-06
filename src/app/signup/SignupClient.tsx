@@ -82,7 +82,7 @@ export default function SignupClient() {
             type="button"
             onClick={goToLogin}
             disabled={isPending}
-            className="underline text-blue-600 hover:text-blue-800 disabled:opacity-50"
+            className="underline text-blue-600 hover:text-blue-800 disabled:opacity-50 cursor-pointer"
           >
             Log in
           </button>
