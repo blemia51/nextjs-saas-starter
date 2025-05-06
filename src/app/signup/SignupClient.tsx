@@ -1,13 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export default function SignupClient() {
-  const [email, setEmail]       = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [msg, setMsg]           = useState<string | null>(null)
-  const [busy, setBusy]         = useState(false)
+  const [msg, setMsg] = useState<string | null>(null)
+  const [busy, setBusy] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -31,11 +34,17 @@ export default function SignupClient() {
     setBusy(false)
   }
 
+  function goToLogin() {
+    startTransition(() => {
+      router.push('/login')
+    })
+  }
+
   return (
-    <main className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-4">
+    <main className="min-h-screen flex items-center justify-center bg-white dark:bg-[#212121] text-gray-900 dark:text-gray-100 p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm space-y-4 bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow"
+        className="w-full max-w-sm space-y-4 bg-gray-50 dark:bg-[#303030] p-6 rounded-xl shadow"
       >
         <h1 className="text-xl font-bold text-center">Create account</h1>
 
@@ -45,7 +54,7 @@ export default function SignupClient() {
           placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900"
+          className="w-full px-4 py-2 rounded border border-gray-300 dark:border-[#171717] bg-white dark:bg-[#212121]"
         />
 
         <input
@@ -54,7 +63,7 @@ export default function SignupClient() {
           placeholder="••••••••"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900"
+          className="w-full px-4 py-2 rounded border border-gray-300 dark:border-[#171717] bg-white dark:bg-[#212121]"
         />
 
         <button
@@ -69,7 +78,14 @@ export default function SignupClient() {
 
         <p className="text-xs text-center">
           Already have an account?{' '}
-          <a href="/login" className="underline text-blue-600">Log in</a>
+          <button
+            type="button"
+            onClick={goToLogin}
+            disabled={isPending}
+            className="underline text-blue-600 hover:text-blue-800 disabled:opacity-50"
+          >
+            Log in
+          </button>
         </p>
       </form>
     </main>
