@@ -1,9 +1,9 @@
 // src/app/api/admin/config/route.ts
-import { NextResponse }       from 'next/server'
-import prisma                 from '@/lib/prisma'
-import { getServerSession }   from 'next-auth'
-import { authOptions }        from '@/lib/auth'
-import { decrypt, encrypt }   from '@/lib/crypto'
+import { NextResponse } from 'next/server'
+import prisma from '@/lib/prisma'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import { decrypt, encrypt } from '@/lib/crypto'
 
 export async function GET() {
   try {
@@ -14,10 +14,10 @@ export async function GET() {
 
     const rows = await prisma.appConfig.findMany()
     const data = rows.map(r => ({
-      key:   r.key,
-      value: r.value === '' 
-      ? '' 
-      : decrypt(r.value),
+      key: r.key,
+      value: r.value === ''
+        ? ''
+        : decrypt(r.value),
     }))
 
     return NextResponse.json(data)
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
 
     const encrypted = value === '' ? '' : encrypt(value)
     await prisma.appConfig.upsert({
-      where:  { key },
+      where: { key },
       update: { value: encrypted },
       create: { key, value: encrypted },
     })

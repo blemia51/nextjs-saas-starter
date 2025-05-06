@@ -1,8 +1,23 @@
 'use client'
 
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
 import { ThemeToggle } from '@/components/ThemeToogle'
 
 export default function HomePage() {
+  const { data: session } = useSession()
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
+
+  function handleLiveDemo() {
+    if (!session) {
+      // si pas connecté, garde la transition fluid
+      startTransition(() => router.push('/login'))
+    } else {
+      startTransition(() => router.push('/dashboard'))
+    }
+  }
   return (
     <main className="min-h-screen px-6 py-20 bg-white dark:bg-[#212121] text-gray-800 dark:text-gray-100 transition-colors">
       <div className="max-w-4xl mx-auto text-center space-y-6">
@@ -13,12 +28,13 @@ export default function HomePage() {
           A clean, scalable Next.js 14 starter with Auth, Stripe, and modern UI—release faster.
         </p>
         <div className="flex justify-center gap-4 flex-wrap">
-          <a
-            href="/dashboard"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-medium"
+          <button
+            onClick={handleLiveDemo}
+            disabled={isPending}
+            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
           >
-            Live Demo
-          </a>
+            {isPending ? 'Loading…' : 'Live Demo'}
+          </button>
           <a
             href="#"
             className="border border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 px-6 py-2 rounded-lg text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-800"
